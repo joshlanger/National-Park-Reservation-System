@@ -220,3 +220,12 @@ ALTER TABLE site ADD FOREIGN KEY (campground_id) REFERENCES campground(campgroun
 ALTER TABLE reservation ADD FOREIGN KEY (site_id) REFERENCES site(site_id);
 
 commit transaction;
+
+select * from campground
+
+select * from park
+
+select * from site
+
+select * from reservation
+
