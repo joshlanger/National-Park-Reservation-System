@@ -6,6 +6,6 @@ namespace Capstone.DAL
 {
     interface SiteSqlDAO
     {
-        SiteSqlDAO
+       
     }
 }

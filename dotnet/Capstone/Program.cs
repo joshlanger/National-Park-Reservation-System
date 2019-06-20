@@ -18,7 +18,8 @@ namespace Capstone
 
             string connectionString = configuration.GetConnectionString("Project");
             IParkDAO parkDAO = new ParkSqlDAO(@"Server =.\SQLEXPRESS; Database = npcampground; Trusted_Connection = True;");
-            Menu menus = new Menu();
+            Menu menus = new Menu(parkDAO);
+            //MORE WILL NEED TO BE ADDED TO THIS CONSTRUCTOR AS YOU PROGRESS!!!
             menus.Intro();
             menus.ViewParks();
         }

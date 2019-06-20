@@ -11,21 +11,21 @@ namespace Capstone.DAL
     public class ParkSqlDAO : IParkDAO
     {
         private string connectionString;
-        public string menuChoice = "";
+        
         
         public ParkSqlDAO(string dbConnectionString)
         {
-            connectionString = dbConnectionString;
+            connectionString = dbConnectionString;            
         }
 
-        public IList<Park> ParkList()
+        public IList<Park> ListParks()
         {
             List<Park> Parks = new List<Park>();
             return Parks;
             //this is here because of the interface.  not sure if it's needed yet.
         }
             
-        public Park ListInfo()
+        public Park ListInfo(string menuChoice)
         {
             Park ChosenPark = new Park();
             try

@@ -6,6 +6,6 @@ namespace Capstone.DAL
 {
     public class ReservationSqlDAO
     {
-        ReservationSqlDAO
+       
     }
 }

@@ -9,5 +9,6 @@ namespace Capstone.DAL
     {
         IList<Park> ListParks();
 
+        Park ListInfo(string menuChoice);
     }
 }
