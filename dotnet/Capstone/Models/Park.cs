@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    public abstract class Park
+    public class Park
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,5 +13,6 @@ namespace Capstone.Models
         public int Area { get; set; }
         public int Visitors { get; set; }
         public string Description { get; set; }
+
     }
 }

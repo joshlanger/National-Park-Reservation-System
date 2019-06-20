@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Capstone.DAL;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 
@@ -16,6 +17,7 @@ namespace Capstone
             IConfigurationRoot configuration = builder.Build();
 
             string connectionString = configuration.GetConnectionString("Project");
+            IParkDAO parkDAO = new ParkSqlDAO(@"Server =.\SQLEXPRESS; Database = npcampground; Trusted_Connection = True;");
             Menu menus = new Menu();
             menus.Intro();
             menus.ViewParks();

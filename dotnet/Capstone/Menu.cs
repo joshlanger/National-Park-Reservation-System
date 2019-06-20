@@ -11,7 +11,7 @@ namespace Capstone
         public void Intro()
         {
             Console.WriteLine("Welcome to the National Park Service reservation system.");
-            
+            Console.WriteLine();
         }
         public void ViewParks()
         {
@@ -20,6 +20,7 @@ namespace Capstone
             Console.WriteLine("2) Arches");
             Console.WriteLine("3) Cuyahoga National Valley Park");
             Console.WriteLine("Q) Quit");
+            Console.WriteLine();
             Console.ReadLine();
         }
     }
