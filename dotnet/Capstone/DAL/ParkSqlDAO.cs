@@ -20,6 +20,8 @@ namespace Capstone.DAL
 
         public IList<Park> ParkList()
         {
+            List<Park> Parks = new List<Park>();
+            return Parks;
             //this is here because of the interface.  not sure if it's needed yet.
         }
             
@@ -31,15 +33,22 @@ namespace Capstone.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand($"select * from where name = {menuChoice} park;", conn);
+                    SqlCommand cmd = new SqlCommand($"select * from park where name = {menuChoice};", conn);
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        
+                        //some steps were excluded here since this isn't a list.  they may be needed.
+                        ChosenPark = ReaderToPark(reader);
                     }
-
                 }
             }
+            catch(SqlException ex)
+            {
+                Console.WriteLine("Error getting park info");
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+            return ChosenPark;
         }
         private Park ReaderToPark(SqlDataReader reader)
         {

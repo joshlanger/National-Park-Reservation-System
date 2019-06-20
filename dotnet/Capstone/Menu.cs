@@ -21,7 +21,7 @@ namespace Capstone
             Console.WriteLine("3) Cuyahoga National Valley Park");
             Console.WriteLine("Q) Quit");
             Console.WriteLine();
-            Console.ReadLine();
+            string menuChoice = Console.ReadLine();
         }
     }
 }
