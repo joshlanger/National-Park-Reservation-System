@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Capstone.DAL
 {
-    interface SiteSqlDAO
+    public class SiteSqlDAO : ISiteDAO
     {
-       
+
     }
 }

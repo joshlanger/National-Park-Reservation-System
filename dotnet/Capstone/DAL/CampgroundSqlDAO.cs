@@ -31,7 +31,7 @@ namespace Capstone.DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string commandText = ($"select * from campground join park on park_id = campground_id where park = @customer_choice;");
+                    string commandText = ($"select * from campground join park on park.park_id = campground.park_id where park.name = @customer_choice;");
                     SqlCommand command = new SqlCommand(commandText, connection);
                     command.Parameters.AddWithValue("@customer_choice", chosenPark);
                     command.CommandText = commandText;

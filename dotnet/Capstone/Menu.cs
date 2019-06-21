@@ -13,6 +13,7 @@ namespace Capstone
         public string chosenPark = "";
         private IParkDAO parkDAO;
         private ICampgroundDAO campgroundDAO;
+        private ISite siteDao;
         //MORE WILL NEED TO BE ADDED TO THE VARIABLE AND CONSTRUCTOR AS YOU PROGRESS!!
         public Menu(IParkDAO parkDAO, ICampgroundDAO campgroundDAO)
         {
@@ -62,7 +63,7 @@ namespace Capstone
                 nationalPark = parkDAO.ListInfo(menuChoice);
                 DisplayParkInfo(nationalPark);
             }
-            Console.ReadLine();
+            
         }
         public void DisplayParkInfo(Park nationalPark)
         {
@@ -85,11 +86,13 @@ namespace Capstone
             string menuCampChoice = Console.ReadLine();
             if (menuCampChoice == "1")
             {
-                //Console.WriteLine("Acadia National Park Campgrounds");
-                //menuCampChoice = "'1'";
+                
                 List<Campground> ParkCampgrounds = new List<Campground>();
                 ParkCampgrounds = campgroundDAO.CampgroundListInfo(chosenPark);
-                foreach(var campground in ParkCampgrounds)
+                Console.WriteLine($" \t {chosenPark} National Park Campgrounds");
+                Console.WriteLine();
+                Console.WriteLine(" ".PadRight(5) + "Name".PadRight(20) + "Open".PadRight(10) + "Close".PadRight(10) + "Daily Fee");
+                foreach (var campground in ParkCampgrounds)
                 {
                     Console.WriteLine(campground);
                 }
