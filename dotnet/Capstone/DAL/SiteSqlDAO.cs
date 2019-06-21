@@ -26,8 +26,8 @@ namespace Capstone.DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string commandText = ("select campground.*,site.* from campground join site on campground.campground_id = site.campground_id where site.site_id not in(select site_id from reservation where '2019-06-15' <= to_date and '2019-06-18' >= from_date);");
-);
+                    string commandText = "select campground.*,site.* from campground join site on campground.campground_id = site.campground_id where site.site_id not in(select site_id from reservation where '2019-06-15' <= to_date and '2019-06-18' >= from_date);";
+
                     SqlCommand command = new SqlCommand(commandText, connection);
                     //command.Parameters.AddWithValue("@customer_choice", chosenPark);
                     command.CommandText = commandText;
