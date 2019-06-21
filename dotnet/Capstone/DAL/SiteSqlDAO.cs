@@ -18,9 +18,9 @@ namespace Capstone.DAL
         public string reservationCampground = "";
         public string reservationName = "";
 
-        public IList<Reservation> ReservationTime(int campgroundNumber, DateTimeOffset arrival, DateTimeOffset departure)
+        public IList<Site> ReservationTime(int campgroundNumber, DateTimeOffset arrival, DateTimeOffset departure)
         {
-            List<Reservation> AvailableCampgrounds = new List<Reservation>();
+            List<Site> AvailableCampgrounds = new List<Site>();
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -32,10 +32,16 @@ namespace Capstone.DAL
                     //command.Parameters.AddWithValue("@customer_choice", chosenPark);
                     command.CommandText = commandText;
                     command.Connection = connection;
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Site container = new Site();
+                        container = ReaderToSite(reader);
+                        AvailableCampgrounds.Add(container); 
+                    }
+
                 }
-
-
-
             }
             catch (SqlException ex)
             {
@@ -45,22 +51,19 @@ namespace Capstone.DAL
             }
             return AvailableCampgrounds;
         }
-
-
-
-        public IList<Reservation> ReservationSiteAndName(int siteNumber, string reservationName)
+        private Site ReaderToSite(SqlDataReader reader)
         {
-            throw new NotImplementedException();
-        }
+            Site OutputSite = new Site();
+            OutputSite.SiteId = Convert.ToInt32("site_id");
+            OutputSite.CampgroundId = Convert.ToInt32("campground_id");
+            OutputSite.SiteNumber = Convert.ToInt32("site_number");
+            OutputSite.MaxOccupancy = Convert.ToInt32("max_occupancy");
+            OutputSite.Accessible = Convert.ToInt32("accessible");
+            OutputSite.MaxRvLength = Convert.ToInt32("max_rv_length");
+            OutputSite.Utilities = Convert.ToInt32("utilities");
 
-        public IList<Site> ListSites()
-        {
-            throw new NotImplementedException();
-        }
+            return OutputSite;
 
-        public Site ListSiteInfo(string menuChoiceSite)
-        {
-            throw new NotImplementedException();
         }
     }
 }

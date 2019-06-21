@@ -229,3 +229,17 @@ select * from site
 
 select * from reservation
 
+select site.site_id, max_occupancy, accessible, max_rv_length, utilities, daily_fee from campground 
+join site
+on campground.campground_id = site.campground_id
+left join reservation
+on site.site_id = reservation.site_id
+where 
+from_date = '2019-06-18' AND to_date = '2019-06-22';
+
+select site.site_id, max_occupancy, accessible, max_rv_length, utilities, daily_fee, from_date, to_date from campground 
+join site
+on campground.campground_id = site.campground_id
+join reservation 
+on site.site_id = reservation.site_id
+where from_date <= '2019-06-04' and to_date >= '2019-06-15'
