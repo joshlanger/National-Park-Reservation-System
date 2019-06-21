@@ -45,10 +45,46 @@ namespace Capstone
             }
             if(menuChoice == "3")
             {
-                menuChoice = "Cuyahoga Valley";
+                menuChoice = "'Cuyahoga Valley'";
             }
             Console.ReadLine();
         }
-        
+
+        private ICampgroundDAO campgroundDAO;
+
+        public void MenuCamps(ICampgroundDAO campgroundDAO)
+        {
+            this.campgroundDAO = campgroundDAO;
+        }
+
+        public void ViewCampgrounds()
+        {
+            Console.WriteLine("Select a Command");
+            Console.WriteLine("1) View Campgrounds");
+            Console.WriteLine("2) Search for Reservations");
+            Console.WriteLine("3) Return to Previous Screen");
+            Console.WriteLine();
+            string menuCampChoice = Console.ReadLine();
+            if (menuCampChoice == "1")
+            {
+                Console.WriteLine("Acadia National Park Campgrounds");
+                menuCampChoice = "'1'";
+                campgroundDAO.CampgroundListInfo(menuCampChoice);
+
+            }
+            if (menuCampChoice == "2")
+            {
+                Console.WriteLine("Arches National Park Campgrounds");
+                menuCampChoice = "'2'";
+
+            }
+            if (menuCampChoice == "3")
+            {
+                Console.WriteLine("Cuyahoga Valley National Park Campgrounds");
+                menuCampChoice = "'3'";
+            }
+
+            Console.ReadLine();
+        }
     }
 }
