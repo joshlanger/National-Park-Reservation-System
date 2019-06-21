@@ -26,9 +26,10 @@ namespace Capstone.DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string commandText = ($"select * from campground join park on park_id = campground_id where park = @customer_choice;");
+                    string commandText = ("select campground.*,site.* from campground join site on campground.campground_id = site.campground_id where site.site_id not in(select site_id from reservation where '2019-06-15' <= to_date and '2019-06-18' >= from_date);");
+);
                     SqlCommand command = new SqlCommand(commandText, connection);
-                    command.Parameters.AddWithValue("@customer_choice", chosenPark);
+                    //command.Parameters.AddWithValue("@customer_choice", chosenPark);
                     command.CommandText = commandText;
                     command.Connection = connection;
                 }
@@ -42,7 +43,7 @@ namespace Capstone.DAL
                 Console.WriteLine(ex.Message);
                 throw;
             }
-
+            return AvailableCampgrounds;
         }
 
 
@@ -63,4 +64,4 @@ namespace Capstone.DAL
         }
     }
 }
-}
+

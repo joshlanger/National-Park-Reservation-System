@@ -11,17 +11,19 @@ namespace Capstone
     public class Menu
     {
         public string chosenPark = "";
+
         private IParkDAO parkDAO;
         private ICampgroundDAO campgroundDAO;
-        private ISite siteDao;
+        private ISiteDAO siteDAO;
         //MORE WILL NEED TO BE ADDED TO THE VARIABLE AND CONSTRUCTOR AS YOU PROGRESS!!
-        public Menu(IParkDAO parkDAO, ICampgroundDAO campgroundDAO)
+        public Menu(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO)
         {
             this.parkDAO = parkDAO;
             this.campgroundDAO = campgroundDAO;
+            this.siteDAO = siteDAO;
         }
 
-        
+
         public void Intro()
         {
             Console.WriteLine("Welcome to the National Park Service reservation system.");
@@ -35,38 +37,33 @@ namespace Capstone
             Console.WriteLine("3) Cuyahoga National Valley Park");
             Console.WriteLine("Q) Quit");
             Console.WriteLine();
-            Park nationalPark = new Park();
             string menuChoice = Console.ReadLine();
-            if(menuChoice == "Q" || menuChoice == "q")
+            if (menuChoice == "Q" || menuChoice == "q")
             {
                 return;
             }
-            if(menuChoice == "1")
+            if (menuChoice == "1")
             {
                 menuChoice = "Acadia";
-                chosenPark = menuChoice;
-                nationalPark = parkDAO.ListInfo(menuChoice);
-                DisplayParkInfo(nationalPark);
-               
+                DisplayParkInfo(menuChoice);
             }
-            if(menuChoice == "2")
+            if (menuChoice == "2")
             {
                 menuChoice = "Arches";
-                chosenPark = menuChoice;
-                nationalPark = parkDAO.ListInfo(menuChoice);
-                DisplayParkInfo(nationalPark);
+                DisplayParkInfo(menuChoice);
             }
-            if(menuChoice == "3")
+            if (menuChoice == "3")
             {
                 menuChoice = "Cuyahoga Valley";
-                chosenPark = menuChoice;
-                nationalPark = parkDAO.ListInfo(menuChoice);
-                DisplayParkInfo(nationalPark);
+                DisplayParkInfo(menuChoice);
             }
-            
+
         }
-        public void DisplayParkInfo(Park nationalPark)
+        public void DisplayParkInfo(string menuChoice)
         {
+            chosenPark = menuChoice;
+            Park nationalPark = new Park();
+            nationalPark = parkDAO.ListInfo(menuChoice);
             Console.WriteLine($"{nationalPark.Name} National Park");
             Console.WriteLine($"Location: {nationalPark.Location}");
             Console.WriteLine($"Established: {nationalPark.EstablishedDate}");
@@ -74,9 +71,12 @@ namespace Capstone
             Console.WriteLine($"Annual Visitors: {nationalPark.Visitors}");
             Console.WriteLine();
             Console.WriteLine($"{nationalPark.Description}");
+            Console.WriteLine();
+            ViewCampgrounds();
         }
 
         public void ViewCampgrounds()
+
         {
             Console.WriteLine("Select a Command");
             Console.WriteLine("1) View Campgrounds");
@@ -86,31 +86,50 @@ namespace Capstone
             string menuCampChoice = Console.ReadLine();
             if (menuCampChoice == "1")
             {
-                
+
                 List<Campground> ParkCampgrounds = new List<Campground>();
                 ParkCampgrounds = campgroundDAO.CampgroundListInfo(chosenPark);
                 Console.WriteLine($" \t {chosenPark} National Park Campgrounds");
                 Console.WriteLine();
-                Console.WriteLine(" ".PadRight(5) + "Name".PadRight(20) + "Open".PadRight(10) + "Close".PadRight(10) + "Daily Fee");
+                Console.WriteLine(" ".PadRight(5) + "Name".PadRight(35) + "Open".PadRight(10) + "Close".PadRight(10) + "Daily Fee");
                 foreach (var campground in ParkCampgrounds)
                 {
                     Console.WriteLine(campground);
                 }
+                while (true)
+                {
+                    Console.WriteLine("Select a Command");
+                    Console.WriteLine("1) Search for Reservation");
+                    Console.WriteLine("2) Return to Previous Screen");
+                    string userCommand = Console.ReadLine();
+                    if (userCommand == "1")
+                    {
+                        SearchAvailability();
+                    }
+                    if (userCommand == "2")
+                    {
+                        ViewCampgrounds();
+                    }
+                    if (userCommand != "1" || userCommand != "2")
+                    {
+                        Console.WriteLine("Invalid Input. Try Again.");
+                    }
+                }
             }
             if (menuCampChoice == "2")
             {
-                Console.WriteLine("Arches National Park Campgrounds");
-                menuCampChoice = "'2'";
-
+                SearchAvailability();
             }
             if (menuCampChoice == "3")
             {
-                Console.WriteLine("Cuyahoga Valley National Park Campgrounds");
-                menuCampChoice = "'3'";
+                ViewParks();
             }
-
-
+            
             Console.ReadLine();
+        }
+        public void SearchAvailability()
+        {
+            Console.WriteLine("");
         }
     }
 }
