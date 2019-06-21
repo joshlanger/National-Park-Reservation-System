@@ -35,20 +35,38 @@ namespace Capstone
             if(menuChoice == "1")
             {
                 menuChoice = "'Acadia'";
-                parkDAO.ListInfo(menuChoice);
+                Park nationalPark = new Park();
+                nationalPark = parkDAO.ListInfo(menuChoice);
+                DisplayParkInfo(nationalPark);
                
             }
             if(menuChoice == "2")
             {
                 menuChoice = "'Arches'";
-
+                Park nationalPark = new Park();
+                nationalPark = parkDAO.ListInfo(menuChoice);
+                DisplayParkInfo(nationalPark);
             }
             if(menuChoice == "3")
             {
                 menuChoice = "'Cuyahoga Valley'";
+                Park nationalPark = new Park();
+                nationalPark = parkDAO.ListInfo(menuChoice);
+                DisplayParkInfo(nationalPark);
             }
             Console.ReadLine();
         }
+        public void DisplayParkInfo(Park nationalPark)
+        {
+            Console.WriteLine($"{nationalPark.Name} National Park");
+            Console.WriteLine($"Location: {nationalPark.Location}");
+            Console.WriteLine($"Established: {nationalPark.EstablishedDate}");
+            Console.WriteLine($"Area: {nationalPark.Area}");
+            Console.WriteLine($"Annual Visitors: {nationalPark.Visitors}");
+            Console.WriteLine();
+            Console.WriteLine($"{nationalPark.Description}");
+        }
+
 
         private ICampgroundDAO campgroundDAO;
 

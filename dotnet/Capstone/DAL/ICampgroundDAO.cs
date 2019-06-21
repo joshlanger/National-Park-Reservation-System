@@ -7,6 +7,6 @@ namespace Capstone.DAL
 {
     public interface ICampgroundDAO
     {
-        Campground CampgroundListInfo(string menuCampChoice);
+        List<Campground> CampgroundListInfo(string menuCampChoice);
     }
 }
