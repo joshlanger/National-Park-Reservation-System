@@ -11,6 +11,6 @@ namespace Capstone.DAL
 
         //Site ListSiteInfo(string menuChoiceSite);
 
-        IList<Site> ReservationTime(int campgroundNumber, DateTimeOffset arrival, DateTimeOffset departure)
+        IList<Site> ReservationTime(int campgroundNumber, double lengthOfStay, DateTimeOffset arrival, DateTimeOffset departure);
     }
 }

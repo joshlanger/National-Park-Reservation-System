@@ -18,7 +18,7 @@ namespace Capstone.DAL
         public string reservationCampground = "";
         public string reservationName = "";
 
-        public IList<Site> ReservationTime(int campgroundNumber, DateTimeOffset arrival, DateTimeOffset departure)
+        public IList<Site> ReservationTime(int campgroundNumber, double lengthOfStay, DateTimeOffset arrival, DateTimeOffset departure)
         {
             List<Site> AvailableCampgrounds = new List<Site>();
             try
@@ -54,13 +54,14 @@ namespace Capstone.DAL
         private Site ReaderToSite(SqlDataReader reader)
         {
             Site OutputSite = new Site();
-            OutputSite.SiteId = Convert.ToInt32("site_id");
-            OutputSite.CampgroundId = Convert.ToInt32("campground_id");
+            //OutputSite.SiteId = Convert.ToInt32("site_id");
+            //OutputSite.CampgroundId = Convert.ToInt32("campground_id");
             OutputSite.SiteNumber = Convert.ToInt32("site_number");
             OutputSite.MaxOccupancy = Convert.ToInt32("max_occupancy");
             OutputSite.Accessible = Convert.ToInt32("accessible");
             OutputSite.MaxRvLength = Convert.ToInt32("max_rv_length");
             OutputSite.Utilities = Convert.ToInt32("utilities");
+            OutputSite.NightlyRate = Convert.ToDecimal("daily_fee");
 
             return OutputSite;
 
