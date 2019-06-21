@@ -37,10 +37,17 @@ namespace Capstone
             Console.WriteLine("3) Cuyahoga National Valley Park");
             Console.WriteLine("Q) Quit");
             Console.WriteLine();
-            string menuChoice = Console.ReadLine();
-            if (menuChoice == "Q" || menuChoice == "q")
+            string menuChoice = Console.ReadLine().ToUpper();
+            if(menuChoice != "1" && menuChoice != "2" && menuChoice != "3" && menuChoice != "Q")
             {
-                return;
+                Console.WriteLine("Invalid Input. Try Again.");
+                Console.WriteLine();
+                ViewParks();
+            }
+            
+            if (menuChoice == "Q")
+            {
+                Environment.Exit(0);
             }
             if (menuChoice == "1")
             {
@@ -78,13 +85,22 @@ namespace Capstone
         public void ViewCampgrounds()
 
         {
+            Console.WriteLine();
             Console.WriteLine("Select a Command");
             Console.WriteLine("1) View Campgrounds");
             Console.WriteLine("2) Search for Reservations");
             Console.WriteLine("3) Return to Previous Screen");
             Console.WriteLine();
             string menuCampChoice = Console.ReadLine();
-            if (menuCampChoice == "1")
+            Console.WriteLine();
+            
+            if (menuCampChoice != "1" && menuCampChoice != "2" && menuCampChoice != "3")
+            {
+                Console.WriteLine("Invalid Input. Try Again.");
+                
+                ViewCampgrounds();
+            }
+                if (menuCampChoice == "1")
             {
 
                 List<Campground> ParkCampgrounds = new List<Campground>();
@@ -96,6 +112,7 @@ namespace Capstone
                 {
                     Console.WriteLine(campground);
                 }
+                Console.WriteLine();
                 while (true)
                 {
                     Console.WriteLine("Select a Command");
@@ -113,6 +130,7 @@ namespace Capstone
                     if (userCommand != "1" || userCommand != "2")
                     {
                         Console.WriteLine("Invalid Input. Try Again.");
+                        Console.WriteLine();
                     }
                 }
             }
