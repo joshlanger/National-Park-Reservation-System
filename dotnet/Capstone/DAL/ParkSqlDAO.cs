@@ -33,7 +33,8 @@ namespace Capstone.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand($"select * from park where name = {menuChoice};", conn);
+                    SqlCommand cmd = new SqlCommand($"select * from park where name = @park;", conn);
+                    cmd.Parameters.AddWithValue("@park", menuChoice);
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {

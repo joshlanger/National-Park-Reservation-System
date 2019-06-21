@@ -23,7 +23,7 @@ namespace Capstone.DAL
             //return Campgrounds;
         //}
 
-        public List<Campground> CampgroundListInfo(string menuCampChoice)
+        public List<Campground> CampgroundListInfo(string chosenPark)
         {
             List<Campground> Campgrounds = new List<Campground>();
             try
@@ -31,16 +31,18 @@ namespace Capstone.DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand();
-                    string commandText = ($"select * from campground where name = {menuCampChoice};");
+                    string commandText = ($"select * from campground join park on park_id = campground_id where park = @customer_choice;");
+                    SqlCommand command = new SqlCommand(commandText, connection);
+                    command.Parameters.AddWithValue("@customer_choice", chosenPark);
                     command.CommandText = commandText;
                     command.Connection = connection;
                     
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-
-                        Campgrounds.Add (ReaderToCampGround(reader));
+                        Campground container = new Campground();
+                        container = ReaderToCampGround(reader);
+                        Campgrounds.Add (container);
                     }
                     
                 }

@@ -10,11 +10,14 @@ namespace Capstone
 {
     public class Menu
     {
+        public string chosenPark = "";
         private IParkDAO parkDAO;
+        private ICampgroundDAO campgroundDAO;
         //MORE WILL NEED TO BE ADDED TO THE VARIABLE AND CONSTRUCTOR AS YOU PROGRESS!!
-        public Menu(IParkDAO parkDAO)
+        public Menu(IParkDAO parkDAO, ICampgroundDAO campgroundDAO)
         {
             this.parkDAO = parkDAO;
+            this.campgroundDAO = campgroundDAO;
         }
 
         
@@ -31,26 +34,31 @@ namespace Capstone
             Console.WriteLine("3) Cuyahoga National Valley Park");
             Console.WriteLine("Q) Quit");
             Console.WriteLine();
+            Park nationalPark = new Park();
             string menuChoice = Console.ReadLine();
+            if(menuChoice == "Q" || menuChoice == "q")
+            {
+                return;
+            }
             if(menuChoice == "1")
             {
-                menuChoice = "'Acadia'";
-                Park nationalPark = new Park();
+                menuChoice = "Acadia";
+                chosenPark = menuChoice;
                 nationalPark = parkDAO.ListInfo(menuChoice);
                 DisplayParkInfo(nationalPark);
                
             }
             if(menuChoice == "2")
             {
-                menuChoice = "'Arches'";
-                Park nationalPark = new Park();
+                menuChoice = "Arches";
+                chosenPark = menuChoice;
                 nationalPark = parkDAO.ListInfo(menuChoice);
                 DisplayParkInfo(nationalPark);
             }
             if(menuChoice == "3")
             {
-                menuChoice = "'Cuyahoga Valley'";
-                Park nationalPark = new Park();
+                menuChoice = "Cuyahoga Valley";
+                chosenPark = menuChoice;
                 nationalPark = parkDAO.ListInfo(menuChoice);
                 DisplayParkInfo(nationalPark);
             }
@@ -67,14 +75,6 @@ namespace Capstone
             Console.WriteLine($"{nationalPark.Description}");
         }
 
-
-        private ICampgroundDAO campgroundDAO;
-
-        public void MenuCamps(ICampgroundDAO campgroundDAO)
-        {
-            this.campgroundDAO = campgroundDAO;
-        }
-
         public void ViewCampgrounds()
         {
             Console.WriteLine("Select a Command");
@@ -85,10 +85,14 @@ namespace Capstone
             string menuCampChoice = Console.ReadLine();
             if (menuCampChoice == "1")
             {
-                Console.WriteLine("Acadia National Park Campgrounds");
-                menuCampChoice = "'1'";
-                campgroundDAO.CampgroundListInfo(menuCampChoice);
-
+                //Console.WriteLine("Acadia National Park Campgrounds");
+                //menuCampChoice = "'1'";
+                List<Campground> ParkCampgrounds = new List<Campground>();
+                ParkCampgrounds = campgroundDAO.CampgroundListInfo(chosenPark);
+                foreach(var campground in ParkCampgrounds)
+                {
+                    Console.WriteLine(campground);
+                }
             }
             if (menuCampChoice == "2")
             {
@@ -101,6 +105,7 @@ namespace Capstone
                 Console.WriteLine("Cuyahoga Valley National Park Campgrounds");
                 menuCampChoice = "'3'";
             }
+
 
             Console.ReadLine();
         }
