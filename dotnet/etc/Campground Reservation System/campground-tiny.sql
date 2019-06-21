@@ -243,3 +243,5 @@ on campground.campground_id = site.campground_id
 join reservation 
 on site.site_id = reservation.site_id
 where from_date <= '2019-06-04' and to_date >= '2019-06-15'
+
+select site_number, max_occupancy, accessible, max_rv_length, utilities, daily_fee from campground join site on campground.campground_id = site.campground_id where site.site_id not in(select site_id from reservation where '2019-06-15' <= to_date and '2019-06-18' >= from_date);

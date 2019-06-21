@@ -147,7 +147,25 @@ namespace Capstone
         }
         public void SearchAvailability()
         {
-            Console.WriteLine("");
+            Console.WriteLine("Which campground? (Press 0 to cancel)");
+            int campgroundNumber = int.Parse(Console.ReadLine());
+            Console.WriteLine("What is the arrival date?  Enter in format 2000/01/01");
+            string arrivalString = Console.ReadLine();
+            arrivalString.Replace("/", "");
+            int year = int.Parse(arrivalString.Substring(0, 3));
+            int month = int.Parse(arrivalString.Substring(4, 5));
+            int day = int.Parse(arrivalString.Substring(6, 7));
+            DateTime arrival = new DateTime(year, month, day);
+            Console.WriteLine("What is the departure date?  Enter in format 2000/01/01");
+            string departureString = Console.ReadLine();
+            departureString.Replace("/", "");
+            year = int.Parse(departureString.Substring(0, 3));
+            month = int.Parse(departureString.Substring(4, 5));
+            day = int.Parse(departureString.Substring(6, 7));
+            DateTime departure = new DateTime(year, month, day);          
+            IList<Site> AvailableSites = new List<Site>();
+            AvailableSites= siteDAO.ReservationTime(campgroundNumber, arrival, departure);
+            Console.WriteLine(AvailableSites);
         }
     }
 }
