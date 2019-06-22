@@ -10,6 +10,7 @@ namespace Capstone.DAL
     {
         private string connectionString;
 
+
         public SiteSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
@@ -26,7 +27,7 @@ namespace Capstone.DAL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string commandText = "select site_number, max_occupancy, accessible, max_rv_length, utilities, (daily_fee * @lengthofstay) as daily_fee  from campground join site on campground.campground_id = site.campground_id where site.site_id not in(select @site from reservation where @from_date <= to_date and @to_date >= from_date);";
+                    string commandText = "select top 5 site_number, max_occupancy, accessible, max_rv_length, utilities, (daily_fee * @lengthofstay) as daily_fee  from campground join site on campground.campground_id = site.campground_id where site.site_id not in(select @site from reservation where @from_date <= to_date and @to_date >= from_date);";
 
                     SqlCommand command = new SqlCommand(commandText, connection);
                     //command.Parameters.AddWithValue("@customer_choice", chosenPark);
@@ -37,9 +38,7 @@ namespace Capstone.DAL
                     command.CommandText = commandText;
                     command.Connection = connection;
 
-                    command.Parameters.AddWithValue("@site", campgroundNumber);
-                    command.Parameters.AddWithValue("@to_date", departure);
-                    command.Parameters.AddWithValue("@from_date", arrival);
+                   
 
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
@@ -57,6 +56,8 @@ namespace Capstone.DAL
                 Console.WriteLine(ex.Message);
                 throw;
             }
+            Site storage = new Site();
+            storage.GetSites(AvailableCampgrounds);
             return AvailableCampgrounds;
         }
         private Site ReaderToSite(SqlDataReader reader)
