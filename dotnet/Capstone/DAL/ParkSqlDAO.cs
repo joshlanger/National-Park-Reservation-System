@@ -12,19 +12,37 @@ namespace Capstone.DAL
     {
         private string connectionString;
         
-        
+        /// <summary>
+        /// Making the connection
+        /// </summary>
+        /// <param name="dbConnectionString"></param>
         public ParkSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;            
         }
 
+        public IList<Park> ListInfo(object menuChoice)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// List of Parks
+        /// </summary>
+        /// <returns></returns>
         public IList<Park> ListParks()
         {
             List<Park> Parks = new List<Park>();
             return Parks;
             //this is here because of the interface.  not sure if it's needed yet.
         }
-            
+
+        /// <summary>
+        /// To choose a park
+        /// </summary>
+        /// <param name="menuChoice"></param>
+        /// <returns></returns>
+
         public Park ListInfo(string menuChoice)
         {
             Park ChosenPark = new Park();

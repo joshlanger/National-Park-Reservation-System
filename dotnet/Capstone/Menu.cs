@@ -16,6 +16,9 @@ namespace Capstone
         private IParkDAO parkDAO;
         private ICampgroundDAO campgroundDAO;
         private ISiteDAO siteDAO;
+
+        public object NecessaryObject { get; private set; }
+
         //MORE WILL NEED TO BE ADDED TO THE VARIABLE AND CONSTRUCTOR AS YOU PROGRESS!!
         public Menu(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO)
         {
