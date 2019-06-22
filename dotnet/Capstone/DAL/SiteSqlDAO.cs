@@ -18,7 +18,7 @@ namespace Capstone.DAL
         public string reservationCampground = "";
         public string reservationName = "";
 
-        public IList<Site> ReservationTime(int campgroundNumber, double lengthOfStay, DateTimeOffset arrival, DateTimeOffset departure)
+        public List<Site> ReservationTime(int campgroundNumber, double lengthOfStay, DateTimeOffset arrival, DateTimeOffset departure)
         {
             List<Site> AvailableCampgrounds = new List<Site>();
             try

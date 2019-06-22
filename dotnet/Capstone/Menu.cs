@@ -100,7 +100,7 @@ namespace Capstone
                 
                 ViewCampgrounds();
             }
-                if (menuCampChoice == "1")
+            if (menuCampChoice == "1")
             {
 
                 List<Campground> ParkCampgrounds = new List<Campground>();
@@ -164,9 +164,13 @@ namespace Capstone
             day = int.Parse(departureDate[2]);
             DateTime departure = new DateTime(year, month, day);
             double lengthOfStay = (departure - arrival).TotalDays;
-            IList<Site> AvailableSites = new List<Site>();
+            List<Site> AvailableSites = new List<Site>();
             AvailableSites= siteDAO.ReservationTime(campgroundNumber, lengthOfStay, arrival, departure);
-            Console.WriteLine(AvailableSites);
+            Console.WriteLine("Site Number".PadRight(15) + "Max Occupancy".PadRight(15) + "Accessible".PadRight(15) + "Max RV Length".PadRight(15) + "Utilities".PadRight(15) + "Total Fee".PadRight(15));
+            foreach (Site site in AvailableSites)
+            {
+                Console.WriteLine(site.SiteNumber.ToString().PadRight(15) + site.MaxOccupancy.ToString().PadRight(15) + site.Accessible.ToString().PadRight(15) + site.MaxRvLength.ToString().PadRight(15) + site.Utilities.ToString().PadRight(15) + site.NightlyRate.ToString("C2").PadRight(15));
+            }
         }
     }
 }
