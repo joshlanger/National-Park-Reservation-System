@@ -55,18 +55,20 @@ namespace Capstone.DAL
             }
             return AvailableCampgrounds;
         }
-        public int MakeReservation(int siteId, string reservationName, DateTime arrival, DateTime departure)
+        public int MakeReservation(int siteId, string reservationName, DateTime arrival, DateTime departure, string createDate)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("insert into reservation values (@siteId, @reservationName, @arrival, @departure); select scope_identity();", connection);
+                    SqlCommand command = new SqlCommand("insert into reservation values (@siteId, @reservationName, @arrival, @departure, @createdate); select scope_identity();", connection);
                     command.Parameters.AddWithValue("@siteId", siteId);
                     command.Parameters.AddWithValue("@reservationName", reservationName);
                     command.Parameters.AddWithValue("@arrival", arrival);
                     command.Parameters.AddWithValue("@departure", departure);
+                    command.Parameters.AddWithValue("@createdate", createDate);
+
                     int reservationID = Convert.ToInt32(command.ExecuteScalar());
                     return reservationID;
                 }

@@ -200,7 +200,8 @@ namespace Capstone
                     Console.WriteLine($"You have chosen site number {chosenSite}.");
                     Console.WriteLine("What name should the reservation be made under?");
                     string reservationName = Console.ReadLine();
-                    int reservationID = siteDAO.MakeReservation(chosenSite, reservationName, SavedArrival, SavedDeparture);
+                    string createDate = DateTime.Now.ToString();
+                    int reservationID = siteDAO.MakeReservation(chosenSite, reservationName, SavedArrival, SavedDeparture, createDate);
                     Console.WriteLine($"Site number {chosenSite} has been reserved for {reservationName}.");
                     Console.WriteLine($"Your confirmation ID is {reservationID}");
                     Console.WriteLine("Press Enter to Exit");
