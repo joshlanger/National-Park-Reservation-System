@@ -37,8 +37,6 @@ namespace Capstone.DAL
                     command.CommandText = commandText;
                     command.Connection = connection;
 
-                   
-
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
@@ -57,6 +55,31 @@ namespace Capstone.DAL
             }
             return AvailableCampgrounds;
         }
+        public int MakeReservation(int siteId, string reservationName, DateTime arrival, DateTime departure)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("insert into reservation values (@siteId, @reservationName, @arrival, @departure); select scope_identity();", connection);
+                    command.Parameters.AddWithValue("@siteId", siteId);
+                    command.Parameters.AddWithValue("@reservationName", reservationName);
+                    command.Parameters.AddWithValue("@arrival", arrival);
+                    command.Parameters.AddWithValue("@departure", departure);
+                    int reservationID = Convert.ToInt32(command.ExecuteScalar());
+                    return reservationID;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("An error occurred making your reservation.");
+                Console.WriteLine(ex);
+                throw;
+            }
+            
+        }
+
         private Site ReaderToSite(SqlDataReader reader)
         {
             Site OutputSite = new Site();

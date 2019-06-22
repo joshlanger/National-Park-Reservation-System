@@ -12,6 +12,8 @@ namespace Capstone
     {
         List<Site> AvailableSites = new List<Site>();
         public string chosenPark = "";
+        DateTime SavedArrival = new DateTime(2000, 01, 01);
+        DateTime SavedDeparture = new DateTime(2000, 01, 01);
 
         private IParkDAO parkDAO;
         private ICampgroundDAO campgroundDAO;
@@ -161,6 +163,7 @@ namespace Capstone
             int month = int.Parse(arrivalDate[1]);
             int day = int.Parse(arrivalDate[2]);
             DateTime arrival = new DateTime(year, month, day);
+            SavedArrival = arrival;
             Console.WriteLine("What is the departure date?  Enter in format 2000/01/01");
             string departureString = Console.ReadLine();
             Console.Clear(); //how does this look?
@@ -169,6 +172,7 @@ namespace Capstone
             month = int.Parse(departureDate[1]);
             day = int.Parse(departureDate[2]);
             DateTime departure = new DateTime(year, month, day);
+            SavedDeparture = departure;
             double lengthOfStay = (departure - arrival).TotalDays;
             AvailableSites= siteDAO.ReservationTime(campgroundNumber, lengthOfStay, arrival, departure);
             Console.WriteLine("Site Number".PadRight(15) + "Max Occupancy".PadRight(15) + "Accessible".PadRight(15) + "Max RV Length".PadRight(15) + "Utilities".PadRight(15) + "Total Fee".PadRight(15));
@@ -196,9 +200,9 @@ namespace Capstone
                     Console.WriteLine($"You have chosen site number {chosenSite}.");
                     Console.WriteLine("What name should the reservation be made under?");
                     string reservationName = Console.ReadLine();
-                    //Reservation Method Here.
+                    int reservationID = siteDAO.MakeReservation(chosenSite, reservationName, SavedArrival, SavedDeparture);
                     Console.WriteLine($"Site number {chosenSite} has been reserved for {reservationName}.");
-                    Console.WriteLine($"Your confirmation ID is ...");
+                    Console.WriteLine($"Your confirmation ID is {reservationID}");
                     Console.WriteLine("Press Enter to Exit");
                     Console.ReadLine();
                     Environment.Exit(0);
