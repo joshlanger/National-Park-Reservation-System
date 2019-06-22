@@ -10,7 +10,7 @@ namespace Capstone
 {
     public class Menu
     {
-        //Site NecessaryObject = new Site();
+        List<Site> AvailableSites = new List<Site>();
         public string chosenPark = "";
 
         private IParkDAO parkDAO;
@@ -170,7 +170,6 @@ namespace Capstone
             day = int.Parse(departureDate[2]);
             DateTime departure = new DateTime(year, month, day);
             double lengthOfStay = (departure - arrival).TotalDays;
-            List<Site> AvailableSites = new List<Site>();
             AvailableSites= siteDAO.ReservationTime(campgroundNumber, lengthOfStay, arrival, departure);
             Console.WriteLine("Site Number".PadRight(15) + "Max Occupancy".PadRight(15) + "Accessible".PadRight(15) + "Max RV Length".PadRight(15) + "Utilities".PadRight(15) + "Total Fee".PadRight(15));
             foreach (Site site in AvailableSites)
@@ -185,16 +184,13 @@ namespace Capstone
             Console.WriteLine("Which site should be reserved? Enter the site number or press 0 to cancel.");
             string inputString = Console.ReadLine();
             int chosenSite = int.Parse(inputString);
-            List<Site> DisplayedSitesContainer = new List<Site>();
-            
-            DisplayedSitesContainer= NecessaryObject.ReturnSites();
             if (chosenSite == 0)
             {
                 SearchAvailability(); 
             }
-            for (int i = 0; i < DisplayedSitesContainer.Count; i++)
+            for (int i = 0; i < AvailableSites.Count; i++)
             {
-                int siteNumber = DisplayedSitesContainer[i].SiteNumber;
+                int siteNumber = AvailableSites[i].SiteNumber;
                 if(siteNumber == chosenSite)
                 {
                     Console.WriteLine($"You have chosen site number {chosenSite}.");
