@@ -15,16 +15,7 @@ namespace Capstone.Models
         public int MaxRvLength { get; set; }
         public int Utilities { get; set; }
         public decimal NightlyRate { get; set; }
-        List<Site> StoredAvailableSites = new List<Site>();
-        public void GetSites(List<Site> AvailableSites)
-        {
-            StoredAvailableSites = AvailableSites;
-        }
-
-        public List<Site> ReturnSites()
-        {
-            return StoredAvailableSites;
-        }
+        
 
         //public override string ToString()
         //{

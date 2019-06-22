@@ -10,7 +10,6 @@ namespace Capstone.DAL
     {
         private string connectionString;
 
-
         public SiteSqlDAO(string dbConnectionString)
         {
             connectionString = dbConnectionString;
@@ -56,8 +55,6 @@ namespace Capstone.DAL
                 Console.WriteLine(ex.Message);
                 throw;
             }
-            Site storage = new Site();
-            storage.GetSites(AvailableCampgrounds);
             return AvailableCampgrounds;
         }
         private Site ReaderToSite(SqlDataReader reader)
