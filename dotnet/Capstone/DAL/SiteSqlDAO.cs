@@ -37,12 +37,16 @@ namespace Capstone.DAL
                     command.CommandText = commandText;
                     command.Connection = connection;
 
+                    command.Parameters.AddWithValue("@site", campgroundNumber);
+                    command.Parameters.AddWithValue("@to_date", departure);
+                    command.Parameters.AddWithValue("@from_date", arrival);
+
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
                         Site container = new Site();
                         container = ReaderToSite(reader);
-                        AvailableCampgrounds.Add(container); 
+                        AvailableCampgrounds.Add(container);
                     }
 
                 }
