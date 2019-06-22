@@ -15,11 +15,21 @@ namespace Capstone.Models
         public int MaxRvLength { get; set; }
         public int Utilities { get; set; }
         public decimal NightlyRate { get; set; }
-
-        public override string ToString()
+        List<Site> StoredAvailableSites = new List<Site>();
+        public void GetSites(List<Site> AvailableSites)
         {
-            return SiteNumber.ToString().PadRight(5) + MaxOccupancy.ToString().PadRight(5) + Accessible.ToString().PadRight(10) + MaxRvLength.ToString().PadRight(10) + Utilities.ToString().PadRight(10) + NightlyRate.ToString("C2").PadRight(5);
+            StoredAvailableSites = AvailableSites;
         }
+
+        public List<Site> ReturnSites()
+        {
+            return StoredAvailableSites;
+        }
+
+        //public override string ToString()
+        //{
+        //    return SiteNumber.ToString().PadRight(5) + MaxOccupancy.ToString().PadRight(5) + Accessible.ToString().PadRight(10) + MaxRvLength.ToString().PadRight(10) + Utilities.ToString().PadRight(10) + NightlyRate.ToString("C2").PadRight(5);
+        //}
         //SiteId.ToString().PadRight(5) + CampgroundId.ToString().PadRight(5) + 
     }
     

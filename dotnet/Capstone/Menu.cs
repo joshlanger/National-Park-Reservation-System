@@ -10,6 +10,7 @@ namespace Capstone
 {
     public class Menu
     {
+        //Site NecessaryObject = new Site();
         public string chosenPark = "";
 
         private IParkDAO parkDAO;
@@ -92,7 +93,7 @@ namespace Capstone
             Console.WriteLine("3) Return to Previous Screen");
             Console.WriteLine();
             string menuCampChoice = Console.ReadLine();
-            Console.WriteLine();
+            Console.Clear();//this was switched from a writeline
             
             if (menuCampChoice != "1" && menuCampChoice != "2" && menuCampChoice != "3")
             {
@@ -149,6 +150,10 @@ namespace Capstone
         {
             Console.WriteLine("Which campground? (Press 0 to cancel)");
             int campgroundNumber = int.Parse(Console.ReadLine());
+            if(campgroundNumber == 0)
+            {
+                ViewCampgrounds();
+            }
             Console.WriteLine("What is the arrival date?  Enter in format 2000/01/01");
             string arrivalString = Console.ReadLine();
             string [] arrivalDate= arrivalString.Split("/");
@@ -158,6 +163,7 @@ namespace Capstone
             DateTime arrival = new DateTime(year, month, day);
             Console.WriteLine("What is the departure date?  Enter in format 2000/01/01");
             string departureString = Console.ReadLine();
+            Console.Clear(); //how does this look?
             string[] departureDate = departureString.Split("/");
             year = int.Parse(departureDate[0]);
             month = int.Parse(departureDate[1]);
@@ -171,6 +177,40 @@ namespace Capstone
             {
                 Console.WriteLine(site.SiteNumber.ToString().PadRight(15) + site.MaxOccupancy.ToString().PadRight(15) + site.Accessible.ToString().PadRight(15) + site.MaxRvLength.ToString().PadRight(15) + site.Utilities.ToString().PadRight(15) + site.NightlyRate.ToString("C2").PadRight(15));
             }
+            MakeReservation();
+        }
+        public void MakeReservation()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Which site should be reserved? Enter the site number or press 0 to cancel.");
+            string inputString = Console.ReadLine();
+            int chosenSite = int.Parse(inputString);
+            List<Site> DisplayedSitesContainer = new List<Site>();
+            
+            DisplayedSitesContainer= NecessaryObject.ReturnSites();
+            if (chosenSite == 0)
+            {
+                SearchAvailability(); 
+            }
+            for (int i = 0; i < DisplayedSitesContainer.Count; i++)
+            {
+                int siteNumber = DisplayedSitesContainer[i].SiteNumber;
+                if(siteNumber == chosenSite)
+                {
+                    Console.WriteLine($"You have chosen site number {chosenSite}.");
+                    Console.WriteLine("What name should the reservation be made under?");
+                    string reservationName = Console.ReadLine();
+                    //Reservation Method Here.
+                    Console.WriteLine($"Site number {chosenSite} has been reserved for {reservationName}.");
+                    Console.WriteLine($"Your confirmation ID is ...");
+                    Console.WriteLine("Press Enter to Exit");
+                    Console.ReadLine();
+                    Environment.Exit(0);
+                }
+            }
+            Console.WriteLine();
+            Console.WriteLine("Invalid Input. Try Again.");
+            MakeReservation();
         }
     }
 }
