@@ -29,7 +29,6 @@ namespace Capstone.DAL
                     string commandText = "select top 5 site_number, max_occupancy, accessible, max_rv_length, utilities, (daily_fee * @lengthofstay) as daily_fee  from campground join site on campground.campground_id = site.campground_id where site.site_id not in(select @site from reservation where @from_date <= to_date and @to_date >= from_date);";
 
                     SqlCommand command = new SqlCommand(commandText, connection);
-                    //command.Parameters.AddWithValue("@customer_choice", chosenPark);
                     command.Parameters.AddWithValue("@site", campgroundNumber);
                     command.Parameters.AddWithValue("@to_date", departure);
                     command.Parameters.AddWithValue("@from_date", arrival);
@@ -42,9 +41,16 @@ namespace Capstone.DAL
                     {
                         Site container = new Site();
                         container = ReaderToSite(reader);
+                        string siteProperty = container.Accessible;
+                        container.Accessible = ConvertBool(siteProperty);
+                        if(container.MaxRvLength == "0")//this needs more testing. haven't seen a case that isn't N/A
+                        {
+                            container.MaxRvLength = "N/A";
+                        }
+                        siteProperty = container.Utilities;
+                        container.Utilities = ConvertBool(siteProperty);
                         AvailableCampgrounds.Add(container);
                     }
-
                 }
             }
             catch (SqlException ex)
@@ -85,17 +91,27 @@ namespace Capstone.DAL
         private Site ReaderToSite(SqlDataReader reader)
         {
             Site OutputSite = new Site();
-            //OutputSite.SiteId = Convert.ToInt32("site_id");
-            //OutputSite.CampgroundId = Convert.ToInt32("campground_id");
             OutputSite.SiteNumber = Convert.ToInt32(reader["site_number"]);
             OutputSite.MaxOccupancy = Convert.ToInt32(reader["max_occupancy"]);
-            OutputSite.Accessible = Convert.ToInt32(reader["accessible"]);
-            OutputSite.MaxRvLength = Convert.ToInt32(reader["max_rv_length"]);
-            OutputSite.Utilities = Convert.ToInt32(reader["utilities"]);
+            OutputSite.Accessible = Convert.ToString(reader["accessible"]);
+            OutputSite.MaxRvLength = Convert.ToString(reader["max_rv_length"]);
+            OutputSite.Utilities = Convert.ToString(reader["utilities"]);
             OutputSite.NightlyRate = Convert.ToDecimal(reader["daily_fee"]);
 
             return OutputSite;
 
+        }
+        public string ConvertBool (string siteProperty)
+        {
+            if (siteProperty == "False")
+            {
+                siteProperty = "No";
+            }
+            else
+            {
+                siteProperty = "Yes";
+            }
+            return siteProperty;
         }
     }
 }

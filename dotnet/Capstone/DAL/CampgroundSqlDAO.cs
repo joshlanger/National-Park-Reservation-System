@@ -9,6 +9,7 @@ namespace Capstone.DAL
     public class CampgroundSqlDAO : ICampgroundDAO
     {
         private string connectionString;
+        
 
         public CampgroundSqlDAO(string dbConnectionString)
         {
@@ -17,11 +18,6 @@ namespace Capstone.DAL
 
         public string menuChoiceCampground = "";
 
-        //public IList<Campground> CampgroundList();
-        //{
-            //List<Campground> Campgrounds = new List<Campground>();
-            //return Campgrounds;
-        //}
 
         public List<Campground> CampgroundListInfo(string chosenPark)
         {
@@ -42,6 +38,12 @@ namespace Capstone.DAL
                     {
                         Campground container = new Campground();
                         container = ReaderToCampGround(reader);
+                        string month = container.OpenFrom;
+                        month = MonthWriter(month);
+                        container.OpenFrom = month;
+                        month = container.OpenTo;
+                        month = MonthWriter(month);
+                        container.OpenTo = month;
                         Campgrounds.Add (container);
                     }
                     
@@ -54,8 +56,6 @@ namespace Capstone.DAL
                 throw;
             }
             return Campgrounds;
-
-
         }
         private Campground ReaderToCampGround(SqlDataReader reader)
         {
@@ -63,11 +63,69 @@ namespace Capstone.DAL
             OutputCampground.CampgroundId = Convert.ToInt32(reader["campground_id"]);
             OutputCampground.ParkId = Convert.ToInt32(reader["park_id"]);
             OutputCampground.Name = Convert.ToString(reader["name"]);
-            OutputCampground.OpenFrom = Convert.ToInt32(reader["open_from_mm"]);
-            OutputCampground.OpenTo = Convert.ToInt32(reader["open_to_mm"]);
+            OutputCampground.OpenFrom = Convert.ToString(reader["open_from_mm"]);//these were changed from toint32 to tostring
+            OutputCampground.OpenTo = Convert.ToString(reader["open_to_mm"]);//
             OutputCampground.Fee = Convert.ToInt32(reader["daily_fee"]);
             
             return OutputCampground;
+        }
+        private string MonthWriter(string month)
+        {
+            switch(month)
+            {
+                case "1":
+                    month = "January";
+                    return month;
+
+                case "2":
+                    month = "February";
+                    return month;
+
+                case "3":
+                    month = "March";
+                    return month;
+
+                case "4":
+                    month = "April";
+                    return month;
+
+                case "5":
+                    month = "May";
+                    return month;
+
+                case "6":
+                    month = "June";
+                    return month;
+
+                case "7":
+                    month = "July";
+                    return month;
+
+                case "8":
+                    month = "August";
+                    return month;
+
+                case "9":
+                    month = "September";
+                    return month;
+
+                case "10":
+                    month = "October";
+                    return month;
+
+                case "11":
+                    month = "November";
+                    return month;
+
+                case "12":
+                    month = "December";
+                    return month;
+
+                default:
+                    return month;
+            }
+
+            
         }
     }
 }

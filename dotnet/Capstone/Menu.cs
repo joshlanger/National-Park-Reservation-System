@@ -113,7 +113,7 @@ namespace Capstone
                 ParkCampgrounds = campgroundDAO.CampgroundListInfo(chosenPark);
                 Console.WriteLine($" \t {chosenPark} National Park Campgrounds");
                 Console.WriteLine();
-                Console.WriteLine(" ".PadRight(5) + "Name".PadRight(35) + "Open".PadRight(10) + "Close".PadRight(10) + "Daily Fee");
+                Console.WriteLine(" ".PadRight(5) + "Name".PadRight(35) + "Open".PadRight(15) + "Close".PadRight(15) + "Daily Fee");
                 foreach (var campground in ParkCampgrounds)
                 {
                     Console.WriteLine(campground);
