@@ -17,8 +17,9 @@ namespace Capstone.Tests
 
         public void GetAllCampgrounds()
         {
+            string menuChoice = "Acadia";
             dao = new ParkSqlDAO(ConnectionString);
-            IList<Park> getParks = dao.ListInfo(2);
+            IList<Park> getParks = dao.ListInfo(menuChoice);
             Assert.AreEqual(2, getParks);
         }
         
