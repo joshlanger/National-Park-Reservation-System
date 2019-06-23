@@ -13,14 +13,19 @@ namespace Capstone.Tests
     {
         private SiteSqlDAO dao { get; set; }
 
-
-        [TestMethod]
-
-        public void GetAllReservations()
-        {
-            dao = new SiteSqlDAO(ConnectionString);
-            IList<Site> getReservation = dao.ReservationTime(...);
-            Assert.AreEqual(2, getReservation);
-        }
     }
+        //[TestMethod]
+
+        //public void ChooseSite()
+        //{
+        //    dao = new SiteSqlDAO(ConnectionString);
+        //    IList<SiteSqlDAO> getAllSites = dao.ReservationTime.getAllSites()
+        //}
+        //{
+        //    dao = new SiteSqlDAO(ConnectionString);
+        //    IList<Site> getReservation = dao.ReservationTime(...);
+        //    Assert.AreEqual(2, getReservation);
+        //}
+    
+    
 }

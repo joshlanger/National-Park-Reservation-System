@@ -14,6 +14,7 @@ namespace Capstone.Tests
         protected int CampgroundId { get; set; }
         protected int SiteId { get; set; }
         protected int ParkId { get; set; }
+        protected int ReservationId { get; set; }
         private TransactionScope transaction;
 
         [TestInitialize]
@@ -23,11 +24,15 @@ namespace Capstone.Tests
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                string deleteText = "delete from campground; delete from site; delete from park;";
+                string deleteText = "delete from reservation; delete from site; delete from campground; delete from park;";
                 SqlCommand command = new SqlCommand(deleteText, connection);
                 command.ExecuteNonQuery();
 
-                string cmdText = $"insert into campground values ({ParkId}; 'Bates Camp Site',1, 12, 125); select scope_identity();";
+                string cmdText = $"insert into park values('Yellowstone','Montana', '1920-03-31', 34720, 3411024, 'This is a test description for Yellowstone'); select scope_identity();";
+                command = new SqlCommand(cmdText, connection);
+                ParkId = Convert.ToInt32(command.ExecuteScalar());
+
+                cmdText = $"insert into campground values ({ParkId}, 'Bates Camp Site',1, 12, 125); select scope_identity();";
                 command = new SqlCommand(cmdText, connection);
                 CampgroundId = Convert.ToInt32(command.ExecuteScalar());
 
@@ -35,9 +40,9 @@ namespace Capstone.Tests
                 command = new SqlCommand(cmdText, connection);
                 SiteId = Convert.ToInt32(command.ExecuteScalar());
 
-                cmdText = "insert into park values('Yellowstone','Montana', 34720, 3411024, 'This is a test description for Yellowstone'); select scope_identity();";
-                command = new SqlCommand(cmdText, connection);
-                ParkId = Convert.ToInt32(command.ExecuteScalar());
+                //cmdText = $"insert into reservation values({SiteId}, 'Langer','2019-06-22', '2019-06-30', '2019-06-15'; select scope_identity();";
+                //command = new SqlCommand(cmdText, connection);
+                //ParkId = Convert.ToInt32(command.ExecuteScalar());
             }
         }
 
