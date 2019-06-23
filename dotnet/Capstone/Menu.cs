@@ -161,31 +161,47 @@ namespace Capstone
             {
                 ViewCampgrounds();
             }
-            Console.WriteLine("What is the arrival date?  Enter in format 2000/01/01");
-            string arrivalString = Console.ReadLine();
-            string [] arrivalDate= arrivalString.Split("/");
-            int year = int.Parse(arrivalDate[0]);
-            int month = int.Parse(arrivalDate[1]);
-            int day = int.Parse(arrivalDate[2]);
-            DateTime Arrival = new DateTime(year, month, day);
-            CustomerInfo.Arrival = Arrival;
-            Console.WriteLine("What is the departure date?  Enter in format 2000/01/01");
-            string departureString = Console.ReadLine();
-            Console.Clear(); 
-            string[] departureDate = departureString.Split("/");
-            year = int.Parse(departureDate[0]);
-            month = int.Parse(departureDate[1]);
-            day = int.Parse(departureDate[2]);
-            DateTime Departure = new DateTime(year, month, day);
-            CustomerInfo.Departure = Departure;
-            double lengthOfStay = (CustomerInfo.Departure - CustomerInfo.Arrival).TotalDays;
-            AvailableSites= siteDAO.ReservationTime(campgroundNumber, lengthOfStay, CustomerInfo.Arrival, CustomerInfo.Departure);
-            Console.WriteLine("Site Number".PadRight(15) + "Max Occupancy".PadRight(15) + "Accessible".PadRight(15) + "Max RV Length".PadRight(15) + "Utilities".PadRight(15) + "Total Fee".PadRight(15));
-            foreach (Site site in AvailableSites)
+            try
             {
-                Console.WriteLine(site.SiteNumber.ToString().PadRight(15) + site.MaxOccupancy.ToString().PadRight(15) + site.Accessible.ToString().PadRight(15) + site.MaxRvLength.ToString().PadRight(15) + site.Utilities.ToString().PadRight(15) + site.NightlyRate.ToString("C2").PadRight(15));
+                Console.WriteLine("What is the arrival date?  Enter in format 2000/01/01");
+                string arrivalString = Console.ReadLine();
+                string[] arrivalDate = arrivalString.Split("/");
+                int year = int.Parse(arrivalDate[0]);
+                int month = int.Parse(arrivalDate[1]);
+                int day = int.Parse(arrivalDate[2]);
+                DateTime Arrival = new DateTime(year, month, day);
+                CustomerInfo.Arrival = Arrival;
+                Console.WriteLine("What is the departure date?  Enter in format 2000/01/01");
+                string departureString = Console.ReadLine();
+                Console.Clear();
+                string[] departureDate = departureString.Split("/");
+                year = int.Parse(departureDate[0]);
+                month = int.Parse(departureDate[1]);
+                day = int.Parse(departureDate[2]);
+                DateTime Departure = new DateTime(year, month, day);
+                CustomerInfo.Departure = Departure;
+                double lengthOfStay = (CustomerInfo.Departure - CustomerInfo.Arrival).TotalDays;
+                AvailableSites = siteDAO.ReservationTime(campgroundNumber, lengthOfStay, CustomerInfo.Arrival, CustomerInfo.Departure);
+                Console.WriteLine("Site Number".PadRight(15) + "Max Occupancy".PadRight(15) + "Accessible".PadRight(15) + "Max RV Length".PadRight(15) + "Utilities".PadRight(15) + "Total Fee".PadRight(15));
+                foreach (Site site in AvailableSites)
+                {
+                    Console.WriteLine(site.SiteNumber.ToString().PadRight(15) + site.MaxOccupancy.ToString().PadRight(15) + site.Accessible.ToString().PadRight(15) + site.MaxRvLength.ToString().PadRight(15) + site.Utilities.ToString().PadRight(15) + site.NightlyRate.ToString("C2").PadRight(15));
+                }
+                MakeReservation();
             }
-            MakeReservation();
+            catch(Exception ex)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Date not entered in correct format.  Press Enter to continue.");
+                Console.WriteLine();
+                Console.ReadLine();
+                
+            }
+            finally
+            {
+                DisplayParkInfo(chosenPark);
+                ViewCampgrounds();
+            }
         }
         public void MakeReservation()
         {
