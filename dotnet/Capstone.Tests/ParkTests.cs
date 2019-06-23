@@ -30,5 +30,13 @@ namespace Capstone.Tests
             Assert.AreEqual(getParks.Id, 0);
         }
 
+        [TestMethod]
+        public void GetParkLocation()
+        {
+            dao = new ParkSqlDAO(ConnectionString);
+            Park getParks = dao.ListInfo("Montana");
+            Assert.AreEqual(getParks.Location, null);
+        }
+
     }
 }
