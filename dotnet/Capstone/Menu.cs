@@ -189,7 +189,7 @@ namespace Capstone
                 }
                 MakeReservation();
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 Console.WriteLine();
                 Console.WriteLine("Date not entered in correct format.  Press Enter to continue.");
