@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Capstone.Models;
 
 namespace Capstone.Models
 {
     public class Reservation
-    {
-        public int ReservationId { get; set; }
+    {  
         public int SiteId { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
-        public DateTime CreateDate { get; set;}
+        public string ReservationName { get; set; }
+        public DateTime  Arrival { get; set; }
+        public DateTime Departure { get; set; }
+        public string CreateDate { get; set;}
+        
     }
 }

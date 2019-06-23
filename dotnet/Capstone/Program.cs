@@ -20,8 +20,8 @@ namespace Capstone
             IParkDAO parkDAO = new ParkSqlDAO(@"Server =.\SQLEXPRESS; Database = npcampground; Trusted_Connection = True;");
             ICampgroundDAO campgroundDAO = new CampgroundSqlDAO(@"Server =.\SQLEXPRESS; Database = npcampground; Trusted_Connection = True;");
             ISiteDAO siteDAO = new SiteSqlDAO(@"Server =.\SQLEXPRESS; Database = npcampground; Trusted_Connection = True;");
-            Menu menus = new Menu(parkDAO, campgroundDAO, siteDAO);
-            //MORE WILL NEED TO BE ADDED TO THIS CONSTRUCTOR AS YOU PROGRESS!!!
+            IReservationDAO reservationDAO = new ReservationSqlDAO(@"Server =.\SQLEXPRESS; Database = npcampground; Trusted_Connection = True;");
+            Menu menus = new Menu(parkDAO, campgroundDAO, siteDAO, reservationDAO);
             menus.Intro();
             menus.ViewParks();
             

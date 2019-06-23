@@ -8,48 +8,39 @@ namespace Capstone.DAL
 {
     public class ReservationSqlDAO : IReservationDAO
     {
-        //private string connectionString;
 
-        //public ReservationSqlDAO(string dbConnectionString)
-        //{
-        //    connectionString = dbConnectionString;
-        //}
+        private string connectionString;
 
-        //public string reservationCampground = "";
-        //public string reservationName = "";
+        public ReservationSqlDAO(string dbConnectionString)
+        {
+            connectionString = dbConnectionString;
+        }
 
-        //public IList<Reservation> ReservationTime(int campgroundNumber, DateTimeOffset arrival, DateTimeOffset departure)
-        //{
-        //    List<Reservation> AvailableCampgrounds = new List<Reservation>();
-        //    try
-        //    {
-        //        using (SqlConnection connection = new SqlConnection(connectionString))
-        //        {
-        //            connection.Open();
-        //            string commandText = ($"select * from campground join park on park_id = campground_id where park = @customer_choice;");
-        //            SqlCommand command = new SqlCommand(commandText, connection);
-        //            command.Parameters.AddWithValue("@customer_choice", chosenPark);
-        //            command.CommandText = commandText;
-        //            command.Connection = connection;
-        //        }
+        public int MakeReservation(Reservation CustomerInfo)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("insert into reservation values (@siteId, @reservationName, @arrival, @departure, @createdate); select scope_identity();", connection);
+                    command.Parameters.AddWithValue("@siteId", CustomerInfo.SiteId);
+                    command.Parameters.AddWithValue("@reservationName", CustomerInfo.ReservationName);
+                    command.Parameters.AddWithValue("@arrival", CustomerInfo.Arrival);
+                    command.Parameters.AddWithValue("@departure", CustomerInfo.Departure);
+                    command.Parameters.AddWithValue("@createdate", CustomerInfo.CreateDate);
 
+                    int reservationID = Convert.ToInt32(command.ExecuteScalar());
+                    return reservationID;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred making your reservation.");
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
 
-
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        Console.WriteLine("Error getting campground info");
-        //        Console.WriteLine(ex.Message);
-        //        throw;
-        //    }
-
-        //  }
-
-
-
-        //public IList<Reservation> ReservationSiteAndName(int siteNumber, string reservationName)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

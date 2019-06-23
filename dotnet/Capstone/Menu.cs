@@ -12,21 +12,21 @@ namespace Capstone
     {
         List<Site> AvailableSites = new List<Site>();
         public string chosenPark = "";
-        DateTime SavedArrival = new DateTime(2000, 01, 01);
-        DateTime SavedDeparture = new DateTime(2000, 01, 01);
+        Reservation CustomerInfo = new Reservation();
 
         private IParkDAO parkDAO;
         private ICampgroundDAO campgroundDAO;
         private ISiteDAO siteDAO;
+        private IReservationDAO reservationDAO;
 
         public object NecessaryObject { get; private set; }
 
-        //MORE WILL NEED TO BE ADDED TO THE VARIABLE AND CONSTRUCTOR AS YOU PROGRESS!!
-        public Menu(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO)
+        public Menu(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO)
         {
             this.parkDAO = parkDAO;
             this.campgroundDAO = campgroundDAO;
             this.siteDAO = siteDAO;
+            this.reservationDAO = reservationDAO;
         }
 
 
@@ -165,8 +165,8 @@ namespace Capstone
             int year = int.Parse(arrivalDate[0]);
             int month = int.Parse(arrivalDate[1]);
             int day = int.Parse(arrivalDate[2]);
-            DateTime arrival = new DateTime(year, month, day);
-            SavedArrival = arrival;
+            DateTime Arrival = new DateTime(year, month, day);
+            CustomerInfo.Arrival = Arrival;
             Console.WriteLine("What is the departure date?  Enter in format 2000/01/01");
             string departureString = Console.ReadLine();
             Console.Clear(); 
@@ -174,10 +174,10 @@ namespace Capstone
             year = int.Parse(departureDate[0]);
             month = int.Parse(departureDate[1]);
             day = int.Parse(departureDate[2]);
-            DateTime departure = new DateTime(year, month, day);
-            SavedDeparture = departure;
-            double lengthOfStay = (departure - arrival).TotalDays;
-            AvailableSites= siteDAO.ReservationTime(campgroundNumber, lengthOfStay, arrival, departure);
+            DateTime Departure = new DateTime(year, month, day);
+            CustomerInfo.Departure = Departure;
+            double lengthOfStay = (CustomerInfo.Departure - CustomerInfo.Arrival).TotalDays;
+            AvailableSites= siteDAO.ReservationTime(campgroundNumber, lengthOfStay, CustomerInfo.Arrival, CustomerInfo.Departure);
             Console.WriteLine("Site Number".PadRight(15) + "Max Occupancy".PadRight(15) + "Accessible".PadRight(15) + "Max RV Length".PadRight(15) + "Utilities".PadRight(15) + "Total Fee".PadRight(15));
             foreach (Site site in AvailableSites)
             {
@@ -190,22 +190,23 @@ namespace Capstone
             Console.WriteLine();
             Console.WriteLine("Which site should be reserved? Enter the site number or press 0 to cancel.");
             string inputString = Console.ReadLine();
-            int chosenSite = int.Parse(inputString);
-            if (chosenSite == 0)
+            CustomerInfo.SiteId = int.Parse(inputString);
+            if (CustomerInfo.SiteId == 0)
             {
                 SearchAvailability(); 
             }
             for (int i = 0; i < AvailableSites.Count; i++)
             {
                 int siteNumber = AvailableSites[i].SiteNumber;
-                if(siteNumber == chosenSite)
+                if(siteNumber == CustomerInfo.SiteId)
                 {
-                    Console.WriteLine($"You have chosen site number {chosenSite}.");
+                    Console.WriteLine($"You have chosen site number {CustomerInfo.SiteId}.");
                     Console.WriteLine("What name should the reservation be made under?");
-                    string reservationName = Console.ReadLine();
-                    string createDate = DateTime.Now.ToString();
-                    int reservationID = siteDAO.MakeReservation(chosenSite, reservationName, SavedArrival, SavedDeparture, createDate);
-                    Console.WriteLine($"Site number {chosenSite} has been reserved for {reservationName}.");
+
+                    CustomerInfo.ReservationName = Console.ReadLine();
+                    CustomerInfo.CreateDate = DateTime.Now.ToString();
+                    int reservationID = reservationDAO.MakeReservation(CustomerInfo);
+                    Console.WriteLine($"Site number {CustomerInfo.SiteId} has been reserved for {CustomerInfo.ReservationName}.");
                     Console.WriteLine($"Your confirmation ID is {reservationID}");
                     Console.WriteLine("Press Enter to Exit");
                     Console.ReadLine();
