@@ -43,40 +43,40 @@ namespace Capstone
             Console.WriteLine("3) Cuyahoga National Valley Park");
             Console.WriteLine("Q) Quit");
             Console.WriteLine();
-            string menuChoice = Console.ReadLine().ToUpper();
-            if(menuChoice != "1" && menuChoice != "2" && menuChoice != "3" && menuChoice != "Q")
+            chosenPark = Console.ReadLine().ToUpper();
+            if(chosenPark != "1" && chosenPark != "2" && chosenPark != "3" && chosenPark != "Q")
             {
                 Console.WriteLine("Invalid Input. Try Again.");
                 Console.WriteLine();
                 ViewParks();
             }
             
-            if (menuChoice == "Q")
+            if (chosenPark == "Q")
             {
                 Environment.Exit(0);
             }
-            if (menuChoice == "1")
+            if (chosenPark == "1")
             {
-                menuChoice = "Acadia";
-                DisplayParkInfo(menuChoice);
+                chosenPark = "Acadia";
+                DisplayParkInfo(chosenPark);
             }
-            if (menuChoice == "2")
+            if (chosenPark == "2")
             {
-                menuChoice = "Arches";
-                DisplayParkInfo(menuChoice);
+                chosenPark = "Arches";
+                DisplayParkInfo(chosenPark);
             }
-            if (menuChoice == "3")
+            if (chosenPark == "3")
             {
-                menuChoice = "Cuyahoga Valley";
-                DisplayParkInfo(menuChoice);
+                chosenPark = "Cuyahoga Valley";
+                DisplayParkInfo(chosenPark);
             }
 
         }
-        public void DisplayParkInfo(string menuChoice)
+        public void DisplayParkInfo(string chosenPark)
         {
-            chosenPark = menuChoice;
+            //chosenPark = menuChoice;
             Park nationalPark = new Park();
-            nationalPark = parkDAO.ListInfo(menuChoice);
+            nationalPark = parkDAO.ListInfo(chosenPark);
             Console.WriteLine($"{nationalPark.Name} National Park");
             Console.WriteLine($"Location: {nationalPark.Location}");
             Console.WriteLine($"Established: {nationalPark.EstablishedDate}");
@@ -110,7 +110,7 @@ namespace Capstone
             {
 
                 List<Campground> ParkCampgrounds = new List<Campground>();
-                ParkCampgrounds = campgroundDAO.CampgroundListInfo(chosenPark);
+                ParkCampgrounds = campgroundDAO.CampgroundListInfo(chosenPark);//where is chosen park from?
                 Console.WriteLine($" \t {chosenPark} National Park Campgrounds");
                 Console.WriteLine();
                 Console.WriteLine(" ".PadRight(5) + "Name".PadRight(35) + "Open".PadRight(15) + "Close".PadRight(15) + "Daily Fee");
@@ -119,7 +119,7 @@ namespace Capstone
                     Console.WriteLine(campground);
                 }
                 Console.WriteLine();
-                while (true)
+                while (true)// could this be put into a separate method?
                 {
                     Console.WriteLine("Select a Command");
                     Console.WriteLine("1) Search for Reservation");
@@ -131,6 +131,8 @@ namespace Capstone
                     }
                     if (userCommand == "2")
                     {
+                        Console.Clear();
+                        DisplayParkInfo(chosenPark);
                         ViewCampgrounds();
                     }
                     if (userCommand != "1" || userCommand != "2")
@@ -153,7 +155,7 @@ namespace Capstone
         }
         public void SearchAvailability()
         {
-            Console.WriteLine("Which campground? (Press 0 to cancel)");
+            Console.WriteLine("Which Campground? (Enter the ID number or Press 0 to cancel)");
             int campgroundNumber = int.Parse(Console.ReadLine());
             if(campgroundNumber == 0)
             {
