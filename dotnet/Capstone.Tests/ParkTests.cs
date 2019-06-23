@@ -15,14 +15,20 @@ namespace Capstone.Tests
 
         [TestMethod]
 
-        public void GetAllCampgrounds()
+        public void ChoosePark()
         {
             dao = new ParkSqlDAO(ConnectionString);
-            IList<Park> getParks = dao.ListInfo(2);
-            Assert.AreEqual(2, getParks);
+            Park getParks = dao.ListInfo("Yellowstone");
+            Assert.AreEqual("Yellowstone", getParks.Name);
         }
-        
 
-        
+        [TestMethod]
+        public void GetSpecificPark()
+        {
+            dao = new ParkSqlDAO(ConnectionString);
+            Park getParks = dao.ListInfo($"{ParkId}");
+            Assert.AreEqual(getParks.Id, 0);
+        }
+
     }
 }
