@@ -7,11 +7,6 @@ namespace Capstone.DAL
 {
     public interface IParkDAO
     {
-        /// <summary>
-        /// List Parks
-        /// </summary>
-        /// <returns></returns>
-        IList<Park> ListParks();
     
         /// <summary>
         /// Menu Selection

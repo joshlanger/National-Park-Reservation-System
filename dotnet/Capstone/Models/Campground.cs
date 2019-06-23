@@ -9,8 +9,8 @@ namespace Capstone.Models
         public int CampgroundId { get; set; }
         public int ParkId { get; set; }
         public string Name { get; set; }
-        public string OpenFrom { get; set; }//you changed these two from ints to strings.
-        public string OpenTo { get; set; }//
+        public string OpenFrom { get; set; }
+        public string OpenTo { get; set; }
         public decimal Fee { get; set; }
 
         public override string ToString()

@@ -63,8 +63,8 @@ namespace Capstone.DAL
             OutputCampground.CampgroundId = Convert.ToInt32(reader["campground_id"]);
             OutputCampground.ParkId = Convert.ToInt32(reader["park_id"]);
             OutputCampground.Name = Convert.ToString(reader["name"]);
-            OutputCampground.OpenFrom = Convert.ToString(reader["open_from_mm"]);//these were changed from toint32 to tostring
-            OutputCampground.OpenTo = Convert.ToString(reader["open_to_mm"]);//
+            OutputCampground.OpenFrom = Convert.ToString(reader["open_from_mm"]);
+            OutputCampground.OpenTo = Convert.ToString(reader["open_to_mm"]);
             OutputCampground.Fee = Convert.ToInt32(reader["daily_fee"]);
             
             return OutputCampground;

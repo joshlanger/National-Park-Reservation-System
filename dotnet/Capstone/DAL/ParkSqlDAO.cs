@@ -21,22 +21,7 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;            
         }
 
-        public IList<Park> ListInfo(object menuChoice)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// List of Parks
-        /// </summary>
-        /// <returns></returns>
-        public IList<Park> ListParks()
-        {
-            List<Park> Parks = new List<Park>();
-            return Parks;
-            //this is here because of the interface.  not sure if it's needed yet.
-        }
-
+       
         /// <summary>
         /// To choose a park
         /// </summary>
@@ -56,7 +41,7 @@ namespace Capstone.DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        //some steps were excluded here since this isn't a list.  they may be needed.
+
                         ChosenPark = ReaderToPark(reader);
                     }
                 }

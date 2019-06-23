@@ -98,7 +98,7 @@ namespace Capstone
             Console.WriteLine("3) Return to Previous Screen");
             Console.WriteLine();
             string menuCampChoice = Console.ReadLine();
-            Console.Clear();//this was switched from a writeline
+            Console.Clear();
             
             if (menuCampChoice != "1" && menuCampChoice != "2" && menuCampChoice != "3")
             {
@@ -169,7 +169,7 @@ namespace Capstone
             SavedArrival = arrival;
             Console.WriteLine("What is the departure date?  Enter in format 2000/01/01");
             string departureString = Console.ReadLine();
-            Console.Clear(); //how does this look?
+            Console.Clear(); 
             string[] departureDate = departureString.Split("/");
             year = int.Parse(departureDate[0]);
             month = int.Parse(departureDate[1]);
