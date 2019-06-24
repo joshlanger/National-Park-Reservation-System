@@ -14,11 +14,11 @@ namespace Capstone.Tests
 
         [TestMethod]
 
-        public void GetSites()
+        public void SiteNumber()
         {
             dao = new SiteSqlDAO(ConnectionString);
-            IList<Site> site = dao.ReservationTime(1, 4, Convert.ToDateTime(06-27-2019), Convert.ToDateTime(06-30-2019));
-            Assert.AreEqual(ReservationId, 0);
+            IList<Site> site = dao.ReservationTime(1, 4, Convert.ToDateTime("2019-06-27"), Convert.ToDateTime("2019-06-30"));
+            Assert.AreEqual(1, site[0].SiteNumber);
         }
 
     }

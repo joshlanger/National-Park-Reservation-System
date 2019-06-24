@@ -33,10 +33,6 @@ namespace Capstone.Tests
             List<Campground> getCampgrounds = dao.CampgroundListInfo("Yellowstone");
             Assert.AreEqual(null, getCampgrounds[1].Name);
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> f4202d8e9d802b591965a69e728c838e709a7b5c
         
     }
 }
