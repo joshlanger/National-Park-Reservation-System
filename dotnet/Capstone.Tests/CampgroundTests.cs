@@ -18,5 +18,7 @@ namespace Capstone.Tests
             IList<Campground> getCampgrounds = dao.CampgroundListInfo("Bates Camp Site");
             Assert.AreEqual(1, getCampgrounds);
         }
+
+        
     }
 }
