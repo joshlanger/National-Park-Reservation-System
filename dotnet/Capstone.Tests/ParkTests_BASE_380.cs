@@ -17,7 +17,12 @@ namespace Capstone.Tests
 
         public void ChoosePark()
         {
+            string menuChoice = "Acadia";
             dao = new ParkSqlDAO(ConnectionString);
+<<<<<<< HEAD
+            IList<Park> getParks = dao.ListInfo(menuChoice);
+            Assert.AreEqual(2, getParks);
+=======
             Park getParks = dao.ListInfo("Yellowstone");
             Assert.AreEqual("Yellowstone", getParks.Name);
         }
@@ -36,6 +41,7 @@ namespace Capstone.Tests
             dao = new ParkSqlDAO(ConnectionString);
             Park getParks = dao.ListInfo("Montana");
             Assert.AreEqual(getParks.Location, null);
+>>>>>>> cf43f28d96ac35a37263cb25545da5d202d30ff7
         }
 
     }

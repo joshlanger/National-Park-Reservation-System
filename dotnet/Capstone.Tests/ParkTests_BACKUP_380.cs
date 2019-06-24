@@ -36,6 +36,10 @@ namespace Capstone.Tests
             dao = new ParkSqlDAO(ConnectionString);
             Park getParks = dao.ListInfo("Montana");
             Assert.AreEqual(getParks.Location, null);
+<<<<<<< HEAD
+
+=======
+>>>>>>> f4202d8e9d802b591965a69e728c838e709a7b5c
         }
 
     }
