@@ -40,9 +40,9 @@ namespace Capstone.Tests
                 command = new SqlCommand(cmdText, connection);
                 SiteId = Convert.ToInt32(command.ExecuteScalar());
 
-                //cmdText = $"insert into reservation values({SiteId}, 'Langer','2019-06-22', '2019-06-30', '2019-06-15'; select scope_identity();";
-                //command = new SqlCommand(cmdText, connection);
-                //ParkId = Convert.ToInt32(command.ExecuteScalar());
+                cmdText = $"insert into reservation values({SiteId}, 'Langer','2019-06-22', '2019-06-30', '2019-06-15'); select scope_identity();";
+                command = new SqlCommand(cmdText, connection);
+                ParkId = Convert.ToInt32(command.ExecuteScalar());
             }
         }
 
