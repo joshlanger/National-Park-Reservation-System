@@ -48,7 +48,7 @@ namespace Capstone.DAL
                         container = ReaderToSite(reader);
                         string siteProperty = container.Accessible;
                         container.Accessible = ConvertBool(siteProperty);
-                        if(container.MaxRvLength == "0")//this needs more testing. haven't seen a case that isn't N/A
+                        if(container.MaxRvLength == "0")
                         {
                             container.MaxRvLength = "N/A";
                         }

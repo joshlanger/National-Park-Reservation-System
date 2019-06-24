@@ -29,5 +29,13 @@ namespace Capstone.Tests
             Assert.AreEqual(500, site[0].NightlyRate);
         }
 
+        [TestMethod]
+        public void MaxRvLengthDisplaysCorrectlyTest()
+        {
+            dao = new SiteSqlDAO(ConnectionString);
+            IList<Site> site = dao.ReservationTime(1, 4, Convert.ToDateTime("2019-06-27"), Convert.ToDateTime("2019-06-30"));
+            Assert.AreEqual("35", site[0].MaxRvLength);
+        }
+
     }
 }

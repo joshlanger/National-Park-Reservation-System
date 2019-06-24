@@ -36,7 +36,7 @@ namespace Capstone.Tests
                 command = new SqlCommand(cmdText, connection);
                 CampgroundId = Convert.ToInt32(command.ExecuteScalar());
 
-                cmdText = $"insert into site values({CampgroundId},1, 50, 0, 0, 0);select scope_identity();";
+                cmdText = $"insert into site values({CampgroundId},1, 50, 0, 35, 0);select scope_identity();";
                 command = new SqlCommand(cmdText, connection);
                 SiteId = Convert.ToInt32(command.ExecuteScalar());
 
