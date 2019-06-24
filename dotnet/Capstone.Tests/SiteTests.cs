@@ -20,6 +20,14 @@ namespace Capstone.Tests
             IList<Site> site = dao.ReservationTime(1, 4, Convert.ToDateTime("2019-06-27"), Convert.ToDateTime("2019-06-30"));
             Assert.AreEqual(1, site[0].SiteNumber);
         }
+        [TestMethod]
+
+        public void TotalFeeForReservationIsCorrectTest()
+        {
+            dao = new SiteSqlDAO(ConnectionString);
+            IList<Site> site = dao.ReservationTime(1, 4, Convert.ToDateTime("2019-06-27"), Convert.ToDateTime("2019-06-30"));
+            Assert.AreEqual(500, site[0].NightlyRate);
+        }
 
     }
 }
