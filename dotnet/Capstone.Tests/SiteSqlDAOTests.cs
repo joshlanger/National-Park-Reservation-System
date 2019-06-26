@@ -8,7 +8,7 @@ namespace Capstone.Tests
 {
     [TestClass]
 
-    public class SiteTests : TestsBaseClass
+    public class SiteSqlDAOTests : CapstoneDAOTests
     {
         private SiteSqlDAO dao { get; set; }
 

@@ -8,7 +8,7 @@ using System.Text;
 namespace Capstone.Tests
 {
     [TestClass]
-    public class ParkTests : TestsBaseClass
+    public class ParkSqlDAOTests : CapstoneDAOTests
     {
         private ParkSqlDAO dao { get; set; }
         

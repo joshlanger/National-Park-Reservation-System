@@ -8,7 +8,7 @@ using System.Transactions;
 namespace Capstone.Tests
 {
     [TestClass]
-    public class TestsBaseClass
+    public class CapstoneDAOTests
     {
         protected string ConnectionString = (@"Server =.\SQLEXPRESS; Database = npcampground; Trusted_Connection = True;");
         protected int CampgroundId { get; set; }
@@ -42,7 +42,7 @@ namespace Capstone.Tests
 
                 cmdText = $"insert into reservation values({SiteId}, 'Langer','2019-06-22', '2019-06-30', '2019-06-15'); select scope_identity();";
                 command = new SqlCommand(cmdText, connection);
-                ParkId = Convert.ToInt32(command.ExecuteScalar());
+                ReservationId = Convert.ToInt32(command.ExecuteScalar());
             }
         }
 

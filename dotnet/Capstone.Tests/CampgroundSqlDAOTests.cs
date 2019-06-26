@@ -9,7 +9,7 @@ using System.Text;
 namespace Capstone.Tests
 {
     [TestClass]
-    public class CampgroundTests : TestsBaseClass
+    public class CampgroundSqlDAOTests : CapstoneDAOTests
     {
         private CampgroundSqlDAO dao { get; set; }
 

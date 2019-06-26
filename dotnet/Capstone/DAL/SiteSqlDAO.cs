@@ -18,10 +18,6 @@ namespace Capstone.DAL
         public string reservationCampground = "";
         public string reservationName = "";
 
-        public IList<Site> ReservationTime(int v1, int v2, Func<bool, DateTime> toDateTime, DateTime dateTime)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<Site> ReservationTime(int campgroundNumber, double lengthOfStay, DateTimeOffset arrival, DateTimeOffset departure)
         {
